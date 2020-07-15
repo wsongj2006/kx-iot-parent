@@ -56,7 +56,4 @@ public class DBConfig {
 
     @Value("${spring.datasource.filters}")
     private String filters;
-
-    @Value("${mybatis.base.package}")
-    private String basePackage;
 }
