@@ -25,14 +25,6 @@ public class HttpListResponse<T> {
         return this;
     }
 
-    public HttpListResponse buildStatus(ResponseCode responseCode) {
-        StatusCode statusCode = new StatusCode();
-        statusCode.setMessage(responseCode.getDescription());
-        statusCode.setCode(responseCode.getCode());
-        this.setStatusCode(statusCode);
-        return this;
-    }
-
     public HttpListResponse buildStatus(StatusCode statusCode) {
         this.setStatusCode(statusCode);
         return this;

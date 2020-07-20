@@ -20,14 +20,6 @@ public class HttpResponse<T> {
         return this;
     }
 
-    public HttpResponse buildStatus(ResponseCode responseCode) {
-        StatusCode statusCode = new StatusCode();
-        statusCode.setCode(responseCode.getCode());
-        statusCode.setMessage(responseCode.getDescription());
-        this.setStatusCode(statusCode);
-        return this;
-    }
-
     public HttpResponse buildStatus(StatusCode statusCode) {
         this.setStatusCode(statusCode);
         return this;
