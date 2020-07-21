@@ -28,6 +28,7 @@ public class JwtTokenUtils {
     private static final String SECTION_ID = "sectionId";
     private static final String USER_ID = "userId";
     private static final String TYPE = "type";
+    private static final String LINE = "lineId";
 
     // 过期时间为7天
     private static final long EXPIRATION = 604800L;
@@ -36,7 +37,8 @@ public class JwtTokenUtils {
     private static final long EXPIRATION_REMEMBER = 604800L;
 
     // 创建token
-    public static String createToken(String userId, String username, String role, String customerId, String subCompanyId, String sectionId, String sessionId, Integer type) {
+    public static String createToken(String userId, String username, String role, String customerId, String subCompanyId,
+                                     String sectionId, String sessionId, Integer type, Long lineId) {
         long expiration = EXPIRATION;
         HashMap<String, Object> map = new HashMap<>();
         map.put(USER_ID, userId);
@@ -46,6 +48,7 @@ public class JwtTokenUtils {
         map.put(SUB_COMPANY_ID, subCompanyId);
         map.put(SECTION_ID, sectionId);
         map.put(TYPE, type);
+        map.put(LINE, lineId);
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS256, SECRET)
                 .setClaims(map)
@@ -113,6 +116,14 @@ public class JwtTokenUtils {
             return null;
         }
         return Integer.parseInt(type);
+    }
+
+    public static Long getLineId(String token) {
+        String lineId = (String) getTokenBody(token).get(LINE);
+        if (StringUtils.isEmpty(lineId)) {
+            return null;
+        }
+        return Long.parseLong(lineId);
     }
 
     // 是否已过期
